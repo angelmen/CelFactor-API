@@ -1,0 +1,70 @@
+MySQL (celfactor)
+	company
+		id
+		organization_name | PK
+		owner_id = company_users.id where company_users.owner_company_id == company.id
+		location
+		email
+		phones
+		rnc
+		waranty_policy
+		return_policy
+	company_users
+		id
+		email UK
+		username | PK
+		hashedPassword
+		works_for = companies.organization_name
+		full_name = employee.firstName + employee.lastName
+		firstname
+		lastname
+		type
+			owners|sellers
+		owned_company_id
+		active
+			yes|no
+	company_clients
+		id | PK
+		fullName = company_clients.firstName + company_clients.lastName
+		firstName
+		lastName
+		maxCredit
+		totalPurchased
+		buysIn = company.id
+
+MongoDB (CelFactor)
+	company_products
+		id | PK
+		description
+		belong_to = company.id
+		min stock
+		stock
+		cost
+		min price
+		usual price
+		taxes
+	company_invoice (MongoDB)
+		company_id = company.id | FK
+		invoice_id | PK
+		invoice_date
+		seller_name = company_users.fullName
+		client_name = company_clients.fullName
+		client_company_name = company_clients.company_name
+		products = [
+			company_products.id, 
+			(company_products.description + details), 
+			company_products.unitPrice, 
+			company_products.taxes, 
+			cuantity
+		] 
+		company_information = [
+			company.id, 
+			company.organization_name, 
+			company.location, 
+			company.email, 
+			company.phones, 
+			company.rnc
+		]
+		total_to_pay
+		discount
+		payment_method
