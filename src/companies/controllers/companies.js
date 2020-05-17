@@ -1,4 +1,4 @@
-const Company = require('../models/Companies')
+const Company = require('../models/company')
 
 exports.addCompany = function (req, res) {
     var error = false;

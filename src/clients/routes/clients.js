@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 // include client controller
-const client_controller = require('../controllers/client');
+const client_controller = require('../controllers/clients');
 
 // routes
 router.get('/', client_controller.getClient);
