@@ -3,7 +3,7 @@ const Company = require('../models/Companies')
 exports.addCompany = function (req, res) {
     var error = false;
     if (!req.body.organization_name) {
-        res.status(500).send({ 'message': 'You must especify the Company id'})
+        res.status(500).send({ 'message': 'You must especify the Company organization name'})
         error = true
         return
     }

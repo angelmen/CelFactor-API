@@ -53,26 +53,18 @@ exports.getInvoices = function (req, res) {
 }
 
 exports.addInvoice = function (req, res) {
-    var error = false
-    if (!req.body.description || !req.body.belong_to) {
-        res.status(500).send({ 'message': 'You must especify the Invoice id' })
-        error = true
-        return
-    }
-    if (!error) {
-        let invoice = new Invoice(req.body)
-        invoice.save()
-            .then(data => {
-                res.send({
-                    message: 'Invoice successfully created',
-                    data: data
-                });
-            }).catch(err => {
-                res.status(500).send({
-                    message: err.message || 'Some error occurred while creating the Invoice.'
-                })
+    let invoice = new Invoice(req.body)
+    invoice.save()
+        .then(data => {
+            res.send({
+                message: 'Invoice successfully created',
+                data: data
+            });
+        }).catch(err => {
+            res.status(500).send({
+                message: err.message || 'Some error occurred while creating the Invoice.'
             })
-    }
+        })
 }
 
 exports.editInvoice = function (req, res) {

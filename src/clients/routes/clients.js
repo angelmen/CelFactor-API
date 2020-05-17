@@ -1,13 +1,13 @@
 const express = require('express');
 const router = express.Router();
 
-// include invoice controller
-const invoice_controller = require('../controllers/invoice');
+// include client controller
+const client_controller = require('../controllers/client');
 
 // routes
-router.get('/', invoice_controller.getInvoices);
-router.post('/', invoice_controller.addInvoice);
-router.put('/', invoice_controller.editInvoice);
-router.delete('/', invoice_controller.deleteInvoice);
+router.get('/', client_controller.getClient);
+router.post('/', client_controller.addClient);
+router.put('/', client_controller.editClient);
+router.delete('/', client_controller.deleteClient);
 
 module.exports = router;

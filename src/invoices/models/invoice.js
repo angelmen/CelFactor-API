@@ -47,6 +47,6 @@ const invoicesSchema = new mongoose.Schema({
     }
 })
 
-invoicesSchema.plugin(AutoIncrement, { id: 'company_invoices_seq', inc_field: 'id', collection_name: "company_invoices_id_counter" })
+invoicesSchema.plugin(AutoIncrement, { id: 'company_invoices_seq', inc_field: 'id', reference_fields: ['belong_to'], collection_name: "company_invoices_id_counter" })
 
 module.exports = mongoose.model('company_invoices', invoicesSchema)

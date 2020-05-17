@@ -77,13 +77,13 @@ exports.addUser = function (req, res) {
 
 exports.editUser = function (req, res) {
     var error = false
-    if (!req.query.id || !req.query.belong_to) {
-        res.status(500).send({ 'message': 'You must specify the id of the users and to whom the users belongs' })
+    if (!req.query.id || !req.query.works_for) {
+        res.status(500).send({ 'message': 'You must specify the id of the users and to whom the users works' })
         error = true
         return
     }
     if (!error) {
-        User.findOneAndUpdate({ _id: req.query.id, belong_to: req.query.belong_to }, req.body)
+        User.findOneAndUpdate({ id: req.query.id, works_for: req.query.works_for }, req.body)
             .then(data => {
                 if (data === undefined || data.length == 0) message = 'No User found!';
                 else message = 'User successfully updated';
@@ -96,13 +96,13 @@ exports.editUser = function (req, res) {
 
 exports.deleteUser = function (req, res) {
     var error = false
-    if (!req.query.id || !req.query.belong_to) {
-        res.status(500).send({ 'message': 'You must specify the id of the User and to whom the User belongs' })
+    if (!req.query.id || !req.query.works_for) {
+        res.status(500).send({ 'message': 'You must specify the id of the User and to whom the User works for' })
         error = true
         return
     }
     if (!error) {
-        User.findOneAndDelete({ _id: req.query.id, belong_to: req.query.belong_to })
+        User.findOneAndDelete({ id: req.query.id, works_for: req.query.works_for })
             .then(data => {
                 if (data === undefined || data.length == 0) message = 'No User found!';
                 else message = 'User successfully deleted';

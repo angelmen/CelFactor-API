@@ -83,7 +83,7 @@ exports.editProduct = function (req, res){
         return
     }
     if(!error){
-        Product.findOneAndUpdate({_id: req.query.id, belong_to: req.query.belong_to}, req.body)
+        Product.findOneAndUpdate({id: req.query.id, belong_to: req.query.belong_to}, req.body)
             .then(data => {
                 if (data === undefined || data.length == 0) message = 'No product found!';
                 else message = 'Product successfully updated';
@@ -102,7 +102,7 @@ exports.deleteProduct = function (req, res){
         return
     }
     if (!error) {
-        Product.findOneAndDelete({ _id: req.query.id, belong_to: req.query.belong_to })
+        Product.findOneAndDelete({ id: req.query.id, belong_to: req.query.belong_to })
             .then(data => {
                 if (data === undefined || data.length == 0) message = 'No product found!';
                 else message = 'Product successfully deleted';
