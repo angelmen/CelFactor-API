@@ -1,31 +1,31 @@
 const mongoose = require('mongoose');
-const AutoIncrement = require("mongoose-sequence")(mongoose)
+const AutoIncrement = require('mongoose-sequence')(mongoose)
 
 
 const invoicesSchema = new mongoose.Schema({
-    _id: {
+    id: {
         type: Number,
     },
     belong_to: {
         type: Number,
-        required: [true, "you need to specify to whom this product belongs to"]
+        required: [true, 'you need to specify to whom this product belongs to']
     },
     created: {
         type: Date,
-        required: [true, "created date is required"],
+        required: [true, 'created date is required'],
         default: Date.now
     },
     seller_name: {
         type: String,
-        required: [true, "seller fullname required"]
+        required: [true, 'seller fullname required']
     },
     client_name: {
         type: String,
-        default: "cliente contado"
+        default: 'cliente contado'
     },
     client_company_name: {
         type: String,
-        default: "n/a"
+        default: 'n/a'
     },
     products: {
        type: Array
@@ -43,10 +43,10 @@ const invoicesSchema = new mongoose.Schema({
     },
     payment_method: {
         type: Array,
-        default: ["cash"]
+        default: ['cash']
     }
-}, { _id: false })
+})
 
-invoicesSchema.plugin(AutoIncrement)
+invoicesSchema.plugin(AutoIncrement, { id: 'company_invoices_seq', inc_field: 'id', collection_name: "company_invoices_id_counter" })
 
-module.exports = mongoose.model("company_invoices", invoicesSchema)
+module.exports = mongoose.model('company_invoices', invoicesSchema)

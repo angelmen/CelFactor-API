@@ -1,4 +1,4 @@
-const Product = require("../models/product")
+const Product = require('../models/product')
 
 exports.getProducts = function (req, res){
     var error = false;
@@ -6,47 +6,47 @@ exports.getProducts = function (req, res){
     var belong_to = req.query.belong_to;
 
     if(!belong_to){
-        res.status(500).send({"message": "You must specify a valid and organization id"})
+        res.status(500).send({'message': 'You must specify a valid and organization id'})
         error = true
     } else if (id && !belong_to){
-        res.status(500).send({"message": "You must specify a valid product id and organization id"})
+        res.status(500).send({'message': 'You must specify a valid product id and organization id'})
         error = true
     }
     if(!error){
         if(belong_to && !id){
             Product.find({belong_to: belong_to})
                 .then(data => {
-                    var message = "";
-                    if (data === undefined || data.length == 0) message = "No product found!";
+                    var message = '';
+                    if (data === undefined || data.length == 0) message = 'No product found!';
                     else message = 'Products successfully retrieved';
-
                     res.status(200).send({
-                        "message": message,
-                        "data": data
+                        'message': message,
+                        'data': data
                     })
 
                 }).catch(err => {
                     res.status(500).send({
-                        "message": "There was an error retreiving the data.",
-                        "error": err.message
+                        'message': 'There was an error retreiving the data.',
+                        'error': err.message
                     })
                 })
+
         } else if(belong_to && id){
-            Product.find({_id: id})
+            Product.find({id: id, belong_to: belong_to})
                 .then(data => {
-                    var message = "";
-                    if (data === undefined || data.length == 0) message = "No product found!";
+                    var message = '';
+                    if (data === undefined || data.length == 0) message = 'No product found!';
                     else message = 'Product successfully retrieved';
                     res.status(200).send({
-                        "message": message,
-                        "data": data
+                        'message': message,
+                        'data': data
                     })
                 }).catch(err => {
-                        if(err.kind == "ObjectId"){
-                            res.status(404).send({"message": `There is no product with id ${id}`, "error": err})
+                        if(err.kind == 'ObjectId'){
+                            res.status(404).send({'message': `There is no product with id ${id}`, 'error': err})
                             return
                         }
-                        res.status(500).send({"message": `There was an error retrieving the product with id ${id}`})
+                        res.status(500).send({'message': `There was an error retrieving the product with id ${id}`})
                     })
         }
     }
@@ -55,7 +55,7 @@ exports.getProducts = function (req, res){
 exports.addProduct = function (req, res){
     var error = false
     if(!req.body.description || !req.body.belong_to){
-        res.status(500).send({"message": "You must especify the product id"})
+        res.status(500).send({'message': 'You must especify the product id'})
         error = true
         return
     }
@@ -69,7 +69,7 @@ exports.addProduct = function (req, res){
                 });
             }).catch(err => {
                     res.status(500).send({
-                        message: err.message || "Some error occurred while creating the product."
+                        message: err.message || 'Some error occurred while creating the product.'
                     })
                 })
     }
@@ -78,18 +78,18 @@ exports.addProduct = function (req, res){
 exports.editProduct = function (req, res){
     var error = false
     if(!req.query.id || !req.query.belong_to){
-        res.status(500).send({"message": "You must specify the id of the product and to whom the product belongs"})
+        res.status(500).send({'message': 'You must specify the id of the product and to whom the product belongs'})
         error =  true
         return
     }
     if(!error){
         Product.findOneAndUpdate({_id: req.query.id, belong_to: req.query.belong_to}, req.body)
             .then(data => {
-                if (data === undefined || data.length == 0) message = "No product found!";
+                if (data === undefined || data.length == 0) message = 'No product found!';
                 else message = 'Product successfully updated';
-                res.status(200).send({"message": message})
+                res.status(200).send({'message': message})
             }).catch( err =>{
-                res.status(500).send({"error": err})
+                res.status(500).send({'error': err})
             })
     }
 }
@@ -97,18 +97,18 @@ exports.editProduct = function (req, res){
 exports.deleteProduct = function (req, res){
     var error = false
     if (!req.query.id || !req.query.belong_to) {
-        res.status(500).send({ "message": "You must specify the id of the product and to whom the product belongs" })
+        res.status(500).send({ 'message': 'You must specify the id of the product and to whom the product belongs' })
         error = true
         return
     }
     if (!error) {
         Product.findOneAndDelete({ _id: req.query.id, belong_to: req.query.belong_to })
             .then(data => {
-                if (data === undefined || data.length == 0) message = "No product found!";
+                if (data === undefined || data.length == 0) message = 'No product found!';
                 else message = 'Product successfully deleted';
-                res.status(200).send({ "message": message })
+                res.status(200).send({ 'message': message })
             }).catch(err => {
-                res.status(500).send({ "error": err || "There was a problem deleting the product or the product does not exist" })
+                res.status(500).send({ 'error': err || 'There was a problem deleting the product or the product does not exist' })
             })
     }
 }
