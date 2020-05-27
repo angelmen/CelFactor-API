@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const conString = 'mongodb+srv://amendez:Angel.1234@celfactor-us-nv-01-x9dfm.mongodb.net/CelFactor?retryWrites=true&w=majority';
+const conString = process.env.mongodbconstring;
 
 mongoose.connect(conString, {
     keepAlive: true,
